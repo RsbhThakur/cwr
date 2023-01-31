@@ -1,0 +1,228 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    height: 100%;
+    width: 100%;
+}
+body{
+    height: 100%;
+    width: 100%;
+    background-color: darkblue;
+    background-image: url('res/bgl.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    overflow: hidden;
+}
+#rotate{
+    display: none;
+    padding: 3vh 3vw;
+    margin: 61vh auto;
+    height:max-content;
+    width: 65vw;
+    background-color: rgba(220, 224, 228, 0.726);
+}
+#rotate h1, #rotate p{
+    position: relative;
+    margin: 3vh 3vw;
+    text-align: center;
+    font-weight: bold;
+}
+#rotate p{
+    color: rgb(138, 6, 6);
+    font-size: 4vw;
+}
+#rotate h1{
+    color: rgb(2, 2, 68);
+    font-size: 4.1vw;
+}
+.play{
+    height: max-content;
+    padding: 3vh 3vw;
+    width: 50vw;
+    margin: 5vh auto;
+    background-color: rgba(220, 224, 228, 0.726);
+}
+.play h1, .play ul{
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    font-family: 'Press Start 2P', cursive;
+}
+.play h1{
+    font-size: 2.5vw;
+}
+.play ul li, .play p{
+    margin: 4vh auto;
+    width: max-content;
+    padding: 1vh 1vw;
+    font-size: 2vw;
+    font-family: 'Press Start 2P', cursive;
+    list-style-type: none;
+}
+.play ul li img{
+    height: 4vh;
+    width: 2vw;
+    margin-right: 1vw;
+}
+.story{
+    top: 0;
+    width: 100vw;
+    height: max-content;
+    padding: 2vw;
+    background-color: rgba(220, 224, 228, 0.726);
+    font-size: 1.2vw;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Press Start 2P', cursive;
+}
+.scoreBox{
+    display: none;
+    position: absolute;
+    top: 0vh;
+    right: 0vw;
+    width: 13vw;
+    height: max-content;
+    padding: 0.5vw;
+    background-color: rgba(220, 224, 228, 0.726);
+    font-size: 0.8vw;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Press Start 2P', cursive;
+}
+.play ul li:hover{
+    background-color: aqua;
+    color: red;
+    cursor: pointer;
+}
+.next{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1vw;
+    height: 15vh;
+    width: 15vh;
+    cursor: pointer;
+}
+.road{
+    display: none;
+    position: absolute;
+    height: 100vh;
+    width: 300vw;
+    background-image: url('res/road.png');
+    background-size: 300vw 20vh;
+    /* animation: moveRoad 0.8s linear infinite; */
+}
+.logo{
+    border-radius: 50%;
+    margin: 5vh auto 0 auto;
+    height: 25vh;
+    width: 28vh;
+}
+#tomContainer{
+    position: absolute;
+    display: none;
+    top: 0vh;
+}
+#royContainer{
+    position: absolute;
+    display: none;
+    top: 0vh;
+    right: 0vw;
+    /* animation: go 3s linear infinite; */
+}
+.tom{
+    height:15vh;
+    width: 12vw;
+    background-size: 12vw 15vh;
+}
+.roy{
+    height:16vh;
+    width: 8vw;
+    background-size: 7vw 16vh;
+}
+#tom{
+    background-image: url('res/tomCar.png');
+}
+#roy{
+    background-image: url('res/roySktbrd.png');
+}
+.carWheel{
+    height: 5vh;
+    width: 2.4vw;
+    background-image: url('res/carWheel.png');
+    background-size: 2.4vw 5vh;
+    animation: wheel 0.1s linear infinite;
+}
+.sktWheel{
+    height: 4vh;
+    width: 1.5vw;
+    background-image: url('res/sktbrdWheels.png');
+    background-size: 1.5vw 4vh;
+    animation: wheel 0.1s linear infinite;
+}
+#carWheel1{
+    margin-top: -3vh;
+    margin-left: 1.32vw;
+}
+#carWheel2{
+    margin-top: -5vh;
+    margin-left: 8.9vw;
+}
+#sktWheel1{
+    margin-top: -1.3vh;
+    margin-left: 0.5vw;
+}
+#sktWheel2{
+    margin-top: -4vh;
+    margin-left: 6.2vw;
+}
+p{
+    text-align: center;
+}
+@viewport {  
+    orientation: landscape;  
+} 
+@media screen and (max-width: 820px) {
+    @media (orientation: portrait){
+        body{
+            background-image: url('res/bgp.png');
+            overflow: hidden;
+        }
+        #rotate{
+            display:block;
+        }
+        .play{
+            display: none;
+        }
+        .road{
+            display: none;
+        }
+        .tomContainer{
+            display: none;
+        }
+    }
+}
+@keyframes moveRoad{
+    0%{
+        background-position: 0vw;
+    }
+    
+    100%{
+        background-position: -100vw;
+    }
+}
+
+@keyframes wheel{
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes go{
+    100%{
+        right: 100vw;
+    }
+}
