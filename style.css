@@ -113,7 +113,7 @@ body{
     width: 300vw;
     background-image: url('res/road.png');
     background-size: 300vw 20vh;
-    /* animation: moveRoad 0.8s linear infinite; */
+    animation: moveRoad 0.8s linear infinite;
 }
 .logo{
     border-radius: 50%;
@@ -131,7 +131,7 @@ body{
     display: none;
     top: 0vh;
     right: 0vw;
-    /* animation: go 3s linear infinite; */
+    animation: go 3s linear infinite;
 }
 .tom{
     height:15vh;
