@@ -5,6 +5,8 @@ const road = document.getElementById("road");
 const tomContainer = document.getElementById("tomContainer");
 const royContainer = document.getElementById("royContainer");
 const tom = document.getElementById("tom");
+const width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+var xi, xf, yi, yf;
 const scoreBox = document.querySelector('.scoreBox');
 var score = 0;
 const storyImages = ["res/theme.png", "res/hateTom.png", "res/killTom.png", "res/loser.png"];
@@ -27,9 +29,9 @@ function changeText(str) {
         let text = document.createTextNode(e);
         let para = document.createElement('p');
         para.style.fontSize = '1vw';
+        para.style.padding = '0vw';
         if(str.indexOf(e)==0){
-            para.style.fontSize = '2.5vw';
-            para.style.padding = '0vw';
+            para.style.fontSize = '2.4vw';
         }
         para.appendChild(text);
         play.appendChild(para);
@@ -47,7 +49,8 @@ ctrlBtn.addEventListener("click", ()=>{
         "Press arrow ↓ to move down",
         "Press arrow → to move right",
         "Press arrow ← to move left",
-        "Press Enter to go on homepage"
+        "Swipe in Phone to move in any direction",
+        "Press Enter or Reload to go on homepage"
     ]);
 });
 creditsBtn.addEventListener("click", ()=>{
@@ -61,14 +64,40 @@ creditsBtn.addEventListener("click", ()=>{
 document.addEventListener("keydown",(e)=>{
     if(e.key=='ArrowUp' && originalTop>0){
         tomContainer.style.top = `${originalTop-20}vh`;
-    } else if(e.key == 'ArrowDown' && originalTop<80){
+    }
+    else if(e.key == 'ArrowDown' && originalTop<80){
         tomContainer.style.top = `${originalTop+20}vh`;
-    } else if(e.key=='ArrowLeft' && originalLeft>0){
+    }
+    else if(e.key=='ArrowLeft' && originalLeft>0){
         tomContainer.style.left = `${originalLeft-10}vw`;
-    } else if(e.key=='ArrowRight' && originalLeft<80){
+    }
+    else if(e.key=='ArrowRight' && originalLeft<80){
         tomContainer.style.left = `${originalLeft+10}vw`;
-    } else if(e.key=='Enter' && gamePaused){
+    }
+    else if(e.key=='Enter' && gamePaused){
         location.reload();
+    }
+});
+
+document.addEventListener('touchstart', (e)=>{
+    xi = e.touches[0].clientX;
+    yi = e.touches[0].clientY;
+});
+
+document.addEventListener('touchend', (e)=>{
+    xf =  e.changedTouches[0].clientX - xi
+    yf =  e.changedTouches[0].clientY - yi
+    if (xf>50  && originalLeft<80){
+        tomContainer.style.left = `${originalLeft+10}vw`;
+    }
+    if (xf<-50 && originalLeft>0){
+        tomContainer.style.left = `${originalLeft-10}vw`;
+    }
+    if(yf<-50 && originalTop>0){
+        tomContainer.style.top = `${originalTop-20}vh`;
+    }
+    if(yf>50 && originalTop<80){
+        tomContainer.style.top = `${originalTop+20}vh`;
     }
 });
 
@@ -118,7 +147,7 @@ function startGame(){
         rx = parseInt(window.getComputedStyle(royContainer).getPropertyValue('left'))
         rxp = parseInt(window.getComputedStyle(royContainer).getPropertyValue('right'))
         tx = parseInt(window.getComputedStyle(tomContainer).getPropertyValue('left'))
-        near = (Math.abs(rx-tx)<=184.982);
+        near = (Math.abs(rx-tx)<=(width*0.13));
         sameLine = (royContainer.style.top == tomContainer.style.top);
         if(rxp<=300){
             royContainer.style.top = tomContainer.style.top;
