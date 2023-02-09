@@ -1,6 +1,8 @@
 # Welcome To Conflicts With Roy.
-## This is a basic game built up from pure HTML, CSS and JS.
-### Here is the source code for the game, Contributions would be thankful.
+**This is a basic game built up from pure HTML, CSS and JS.**
+
+**Here you can find source code for the game, Contributions would be thankful.**
+
 ***[Click here to test the game](https://RsbhThakur.Github.io/CWR)***
 
 ## **Welcome To version 1.1!**
@@ -10,12 +12,15 @@ _In this version the game's support has been extended to touch devices._
 
 ***Bug fixes:***
 > _1. Corrected Unresponsive Behaviour of score detection._
-_2. Corrected The lag in 'game over' function._
-_3. Corrected The bug of disfigurement of game on zooming._
+
+> _2. Corrected The lag in 'game over' function._
+
+> _3. Corrected The bug of disfigurement of game on zooming._
 
 ***What will be added soon:***
 > _1. High score feature_
-_2. Pause and Resume feature_
+
+> _2. Pause and Resume feature_
 
 
 ## **Welcome To Version 1.0!**
