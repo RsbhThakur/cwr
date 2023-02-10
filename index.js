@@ -3,9 +3,12 @@ const ctrlBtn = document.getElementById("help");
 const creditsBtn = document.getElementById("about");
 const road = document.getElementById("road");
 const tomContainer = document.getElementById("tomContainer");
+const pauseBtn = document.querySelector('.pause');
 const royContainer = document.getElementById("royContainer");
 const tom = document.getElementById("tom");
 const width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+let hC = localStorage.getItem('highScoreCWR');
+var highScore = (hC != null)&&(hC != NaN) ? hC : 0;
 var xi, xf, yi, yf;
 const scoreBox = document.querySelector('.scoreBox');
 var score = 0;
@@ -13,8 +16,7 @@ const storyImages = ["res/theme.png", "res/hateTom.png", "res/killTom.png", "res
 const storyText = [
     "Once Roy was stealing a jewel when suddenly tom saw him and told everybody!",
     "But Nobody beleived him and everybody started hating Tom!",
-    "Now Roy wants to attack tom and you need to protect him!",
-    `Game Over at Score: ${score}, click next to retry or click enter to go to homepage!`
+    "Now Roy wants to attack tom and you need to protect him!"
 ];
 var storyCount = 2; // 0, 1, 2 story ,,, 3-> game over
 var gameStarted = false;
@@ -37,6 +39,33 @@ function changeText(str) {
         play.appendChild(para);
     });
 }
+function gamePause(ry, ty){
+    StoryBtnclicked = false;
+    pauseBtn.style.display = "none";
+    scoreBox.style.display = "none";
+    road.style.display="none";
+    tomContainer.style.display="none";
+    royContainer.style.display="none";
+    document.body.style.backgroundImage = `url('${storyImages[3]}')`;
+    let textNode = document.createTextNode(`You have paused the game at score: ${score}, click play button to resume.`);
+    let box = document.createElement('p');
+    let nextBtn = document.createElement('img');
+    box.appendChild(textNode);
+    box.classList.add('story');
+    nextBtn.classList.add('next');
+    nextBtn.src= "res/play.png";
+    nextBtn.alt = "play";
+    document.body.children[0].appendChild(nextBtn);
+    document.body.children[0].appendChild(box);
+    nextBtn.addEventListener('click', ()=>{
+        document.body.children[0].removeChild(nextBtn);
+        document.body.children[0].removeChild(box);
+        gameStarted = true;
+        gamePaused = false;
+        clearInterval(gameInt);
+        startGame(ry, ty);
+    });
+}
 gameBtn.addEventListener("click", ()=>{
     if(!gameStarted){
         displayStory(0);
@@ -50,6 +79,7 @@ ctrlBtn.addEventListener("click", ()=>{
         "Press arrow → to move right",
         "Press arrow ← to move left",
         "Swipe in Phone to move in any direction",
+        "Press SpaceBar or pause button to pause the game",
         "Press Enter or Reload to go on homepage"
     ]);
 });
@@ -59,6 +89,14 @@ creditsBtn.addEventListener("click", ()=>{
         "Creator: Rishabh",
         "Special Thanks: Pranav, Rishi"
     ]);
+});
+pauseBtn.addEventListener("click",()=>{
+    gamePaused = true;
+    gameStarted = false;
+    ry = royContainer.style.top;
+    ty = tomContainer.style.top;
+    clearInterval(gameInt);
+    gamePause(ry, ty);
 });
 
 document.addEventListener("keydown",(e)=>{
@@ -76,6 +114,14 @@ document.addEventListener("keydown",(e)=>{
     }
     else if(e.key=='Enter' && gamePaused){
         location.reload();
+    }
+    else if(e.code=='Space'){
+        gamePaused = true;
+        gameStarted = false;
+        ry = royContainer.style.top;
+        ty = tomContainer.style.top;
+        clearInterval(gameInt);
+        gamePause(ry, ty);
     }
 });
 
@@ -126,46 +172,51 @@ function displayStory(count){
             document.body.children[0].removeChild(box);
             gameStarted = true;
             gamePaused = false;
-            startGame();
+            startGame(0, 0);
         }
     });
 }
 
-function startGame(){
-    storyText.pop()
+function gameInterval() {
+    originalTop = parseInt(tomContainer.style.top);
+    originalLeft = parseInt(tomContainer.style.left);
+    rxp = parseInt(window.getComputedStyle(royContainer).getPropertyValue('right'));
+    rx = parseInt(window.getComputedStyle(royContainer).getPropertyValue('left'));
+    tx = parseInt(window.getComputedStyle(tomContainer).getPropertyValue('left'));
+    near = (Math.abs(rx-tx)<=(width*0.13));
+    sameLine = (royContainer.style.top == tomContainer.style.top);
+    if(rxp<=0.1953*width){
+        royContainer.style.top = tomContainer.style.top;
+    }
+    if (near && sameLine) {
+        localStorage.setItem('highScoreCWR', highScore)
+        gameStarted = false;
+        gamePaused= true;
+        storyText.push(`Game Over at Score: ${score}, click next to retry or click enter to go to homepage!`);
+        score = 0;
+        displayStory(3);
+    } else if (near && !sameLine){
+        score += 10;
+        highScore = highScore>score ? highScore : score;
+        if (score<=50) {
+            royContainer.style.animation = `go 1.7s linear infinite`;
+        }
+    }
+    scoreBox.textContent = `High Score: ${highScore} | Current Score: ${score}`;
+}
+
+function startGame(ry, ty){
+    pauseBtn.style.display = "block";
     scoreBox.style.display = "block";
     road.style.display="block";
     tomContainer.style.display="block";
-    tomContainer.style.top="0vh";
-    tomContainer.style.left="0vw";
     royContainer.style.display="block";
-    royContainer.style.top="0vh";
-    royContainer.style.right="0vw";
-    setInterval(() => {
-        originalTop = parseInt(tomContainer.style.top);
-        originalLeft = parseInt(tomContainer.style.left);
-        rx = parseInt(window.getComputedStyle(royContainer).getPropertyValue('left'))
-        rxp = parseInt(window.getComputedStyle(royContainer).getPropertyValue('right'))
-        tx = parseInt(window.getComputedStyle(tomContainer).getPropertyValue('left'))
-        near = (Math.abs(rx-tx)<=(width*0.13));
-        sameLine = (royContainer.style.top == tomContainer.style.top);
-        if(rxp<=300){
-            royContainer.style.top = tomContainer.style.top;
-        }
-        if (near && sameLine) {
-            gameStarted = false;
-            gamePaused= true;
-            storyText.push(`Game Over at Score: ${score}, click next to retry or click enter to go to homepage!`);
-            score = 0;
-            displayStory(3);
-        } else if (near && !sameLine){
-            score += 10;
-            royContainer.style.animation = 'go 1.7s linear infinite'
-        }
-        scoreBox.textContent = `Score: ${score}`;
-    }, 300);
+    tomContainer.style.top=`${ty}`;
+    tomContainer.style.left=`0vw`;
+    royContainer.style.top=`${ry}`;
+    royContainer.style.right=`0vw`;
+    gameInt = setInterval(gameInterval , 300);
 }
 
 
 
-screen.orientation.lock('landscape');

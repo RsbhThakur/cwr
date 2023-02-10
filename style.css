@@ -83,14 +83,25 @@ body{
     position: absolute;
     top: 0vh;
     right: 0vw;
-    width: 13vw;
+    width: max-content;
     height: max-content;
     padding: 0.5vw;
     background-color: rgba(220, 224, 228, 0.726);
-    font-size: 0.8vw;
+    font-size: 0.6vw;
     text-align: center;
     font-weight: bold;
     font-family: 'Press Start 2P', cursive;
+}
+.pause{
+    display: none;
+    position: absolute;
+    bottom: 0vh;
+    right: 0vw;
+    width: 10vh;
+    height: 10vh;
+    margin: 1vw;
+    cursor: pointer;
+    border-radius: 50%;
 }
 .play ul li:hover{
     background-color: aqua;
@@ -105,6 +116,7 @@ body{
     height: 15vh;
     width: 15vh;
     cursor: pointer;
+    border-radius: 50%;
 }
 .road{
     display: none;

@@ -5,6 +5,19 @@
 
 ***[Click here to test the game](https://RsbhThakur.Github.io/CWR)***
 
+## **Welcome To version 1.2!**
+
+### What's new:
+_In this version we have added the features of pausing the game and maintaining high score._
+
+***Bug fixes:***
+> _1. Corrected The bug in speed of Roy._
+
+> _2. Corrected bug of hitting of tom with roy before actual hitting in touch screen devices._
+
+***What will be added soon:***
+> _1. Difficulty Levels_
+
 ## **Welcome To version 1.1!**
 
 ### What's new:
