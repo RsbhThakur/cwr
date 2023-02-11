@@ -5,7 +5,20 @@
 
 ***[Click here to test the game](https://RsbhThakur.Github.io/CWR)***
 
-## **Welcome To version 1.2!**
+## **Welcome To Version 2.0!**
+
+### What's new:
+_In this version we have added different difficulty levels! Play and Enjoy the Game!_
+
+***Bug fixes:***
+> _1. Corrected The bug in Score Management._
+
+> _2. Corrected bug of changing lane of roy._
+
+***What will be added soon:***
+> _1. Better Screen for level management_
+
+## **Version 1.2!**
 
 ### What's new:
 _In this version we have added the features of pausing the game and maintaining high score._
@@ -18,7 +31,7 @@ _In this version we have added the features of pausing the game and maintaining 
 ***What will be added soon:***
 > _1. Difficulty Levels_
 
-## **Welcome To version 1.1!**
+## **Version 1.1!**
 
 ### What's new:
 _In this version the game's support has been extended to touch devices._
@@ -36,7 +49,7 @@ _In this version the game's support has been extended to touch devices._
 > _2. Pause and Resume feature_
 
 
-## **Welcome To Version 1.0!**
+## **Version 1.0!**
 _In this game, there are various lanes in which Tom (The Player) can move and roy comes to attack him. we need to save them being hit._
 
 _Currently this game works well and responsive for keyboard enabled devices only but soon increase its support to touch enable devices._

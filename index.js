@@ -16,7 +16,8 @@ const storyImages = ["res/theme.png", "res/hateTom.png", "res/killTom.png", "res
 const storyText = [
     "Once Roy was stealing a jewel when suddenly tom saw him and told everybody!",
     "But Nobody beleived him and everybody started hating Tom!",
-    "Now Roy wants to attack tom and you need to protect him!"
+    "Now Roy wants to attack tom and you need to protect him!",
+    null
 ];
 var storyCount = 2; // 0, 1, 2 story ,,, 3-> game over
 var gameStarted = false;
@@ -183,26 +184,35 @@ function gameInterval() {
     rxp = parseInt(window.getComputedStyle(royContainer).getPropertyValue('right'));
     rx = parseInt(window.getComputedStyle(royContainer).getPropertyValue('left'));
     tx = parseInt(window.getComputedStyle(tomContainer).getPropertyValue('left'));
-    near = (Math.abs(rx-tx)<=(width*0.13));
+    near = (Math.abs(rx-tx)<=(width*0.1311));
     sameLine = (royContainer.style.top == tomContainer.style.top);
-    if(rxp<=0.1953*width){
+    if(rxp<=0.25*width){
         royContainer.style.top = tomContainer.style.top;
     }
     if (near && sameLine) {
         localStorage.setItem('highScoreCWR', highScore)
         gameStarted = false;
         gamePaused= true;
-        storyText.push(`Game Over at Score: ${score}, click next to retry or click enter to go to homepage!`);
+        storyText.pop();
+        storyText.push(`Game Over at Score: ${Math.floor(0.5+ score)}, click next to retry or click enter to go to homepage!`);
         score = 0;
         displayStory(3);
     } else if (near && !sameLine){
-        score += 10;
+        score += 2;
         highScore = highScore>score ? highScore : score;
         if (score<=50) {
-            royContainer.style.animation = `go 1.7s linear infinite`;
+            royContainer.style.animation = `go 1.3s linear infinite`;
+        } else if (score<=150){
+            royContainer.style.animation = `go 1.1s linear infinite`;
+        } else if(score<=400){
+            royContainer.style.animation = `go 0.9s linear infinite`;
+        } else if (score<=600){
+            royContainer.style.animation = `go 0.75s linear infinite`;
+        } else if (score<=800){
+            royContainer.style.animation = `go 0.7s linear infinite`;
         }
     }
-    scoreBox.textContent = `High Score: ${highScore} | Current Score: ${score}`;
+    scoreBox.textContent = `High Score: ${highScore} | Current Score: ${Math.floor(0.5+ score)}`;
 }
 
 function startGame(ry, ty){
@@ -215,7 +225,7 @@ function startGame(ry, ty){
     tomContainer.style.left=`0vw`;
     royContainer.style.top=`${ry}`;
     royContainer.style.right=`0vw`;
-    gameInt = setInterval(gameInterval , 300);
+    gameInt = setInterval(gameInterval , 50);
 }
 
 
