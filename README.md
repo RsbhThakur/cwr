@@ -3,7 +3,7 @@
 
 **Here you can find source code for the game, Contributions would be thankful.**
 
-***[Click here to test the game](https://RsbhThakur.Github.io/CWR)***
+***[Click here to test the game](https://RsbhThakur.Github.io/cwr)***
 
 ## **Welcome To Version 2.0!**
 
