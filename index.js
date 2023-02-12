@@ -12,14 +12,15 @@ var highScore = (hC != null)&&(hC != NaN) ? hC : 0;
 var xi, xf, yi, yf;
 const scoreBox = document.querySelector('.scoreBox');
 var score = 0;
-const storyImages = ["res/theme.png", "res/hateTom.png", "res/killTom.png", "res/loser.png"];
+const storyImages = ["res/theme.png", "res/hateTom.png", "res/killTom.png", "res/loser.png", "res/loser.png"];
 const storyText = [
     "Once Roy was stealing a jewel when suddenly tom saw him and told everybody!",
     "But Nobody beleived him and everybody started hating Tom!",
     "Now Roy wants to attack tom and you need to protect him!",
+    // "Select Your Level!",
     null
 ];
-var storyCount = 2; // 0, 1, 2 story ,,, 3-> game over
+var storyCount = 3; // 0, 1, 2, 3 story ,,, 4-> game over
 var gameStarted = false;
 var gamePaused = true;
 function changeText(str) {
@@ -99,6 +100,11 @@ pauseBtn.addEventListener("click",()=>{
     clearInterval(gameInt);
     gamePause(ry, ty);
 });
+screen.orientation.addEventListener('change', ()=>{
+    if(screen.orientation.type == 'portrait-primary'){
+        document.location.reload();
+    }
+});
 
 document.addEventListener("keydown",(e)=>{
     if(e.key=='ArrowUp' && originalTop>0){
@@ -166,7 +172,7 @@ function displayStory(count){
     document.body.children[0].appendChild(nextBtn);
     document.body.children[0].appendChild(box);
     nextBtn.addEventListener('click', ()=>{
-        if(count<storyCount){
+        if(count+1<storyCount){
             displayStory(count+1);
         } else{
             document.body.children[0].removeChild(nextBtn);
@@ -184,7 +190,7 @@ function gameInterval() {
     rxp = parseInt(window.getComputedStyle(royContainer).getPropertyValue('right'));
     rx = parseInt(window.getComputedStyle(royContainer).getPropertyValue('left'));
     tx = parseInt(window.getComputedStyle(tomContainer).getPropertyValue('left'));
-    near = (Math.abs(rx-tx)<=(width*0.1311));
+    near = (Math.abs(rx-tx)<=(width*0.119));
     sameLine = (royContainer.style.top == tomContainer.style.top);
     if(rxp<=0.25*width){
         royContainer.style.top = tomContainer.style.top;
@@ -196,20 +202,20 @@ function gameInterval() {
         storyText.pop();
         storyText.push(`Game Over at Score: ${Math.floor(0.5+ score)}, click next to retry or click enter to go to homepage!`);
         score = 0;
-        displayStory(3);
+        displayStory(storyCount);
     } else if (near && !sameLine){
-        score += 2;
+        score += 1;
         highScore = highScore>score ? highScore : score;
         if (score<=50) {
             royContainer.style.animation = `go 1.3s linear infinite`;
         } else if (score<=150){
-            royContainer.style.animation = `go 1.1s linear infinite`;
+            royContainer.style.animation = `go 1.2s linear infinite`;
         } else if(score<=400){
-            royContainer.style.animation = `go 0.9s linear infinite`;
+            royContainer.style.animation = `go 1s linear infinite`;
         } else if (score<=600){
-            royContainer.style.animation = `go 0.75s linear infinite`;
+            royContainer.style.animation = `go 0.9s linear infinite`;
         } else if (score<=800){
-            royContainer.style.animation = `go 0.7s linear infinite`;
+            royContainer.style.animation = `go 0.8s linear infinite`;
         }
     }
     scoreBox.textContent = `High Score: ${highScore} | Current Score: ${Math.floor(0.5+ score)}`;

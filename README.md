@@ -13,7 +13,11 @@ _In this version we have added different difficulty levels! Play and Enjoy the G
 ***Bug fixes:***
 > _1. Corrected The bug in Score Management._
 
-> _2. Corrected bug of changing lane of roy._
+> _2. Corrected Font Sizes._
+
+> _3. Corrected bug of changing lane of roy._
+
+> _4. Corrected the bug on rotating deivce Orientation._
 
 ***What will be added soon:***
 > _1. Better Screen for level management_
